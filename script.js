@@ -102,11 +102,13 @@ function clickAnimation(btn) {
 function playSound(color) {
   let audio = new Audio("./sounds/" + color + ".mp3");
   audio.play();
+  audio.volume = 0.3;
 }
 
 function gameOverSound() {
   let gameOverSound = new Audio("./sounds/wrong.mp3");
   gameOverSound.play();
+  gameOverSound.volume = 0.3;
 }
 
 function updateHighScore(level) {
