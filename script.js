@@ -3,11 +3,24 @@ let userPattern = [];
 let gamePattern = [];
 let level = 0;
 let gameStarted = false;
+var highScore = 0;
 
-$(document).keypress(function () {
-  if (!gameStarted) {
-    startGame();
-    gameStarted = true;
+$(".btn").click(function () {
+  clickAnimation(this.id);
+  playSound(this.id);
+
+  if (gameStarted) {
+    userPattern.push(this.id);
+    checkPattern(userPattern.length - 1);
+  }
+});
+
+$(document).click(function (e) {
+  if (!$(".container").has(e.target).length) {
+    if (!gameStarted) {
+      startGame();
+      gameStarted = true;
+    }
   }
 });
 
@@ -44,12 +57,6 @@ function startGame() {
     delay += 500; // Increment delay by 500 milliseconds for each iteration
   }
 }
-$(".btn").click(function () {
-  clickAnimation(this.id);
-  playSound(this.id);
-  userPattern.push(this.id);
-  checkPattern(userPattern.length - 1);
-});
 
 function clickAnimation(btn) {
   $("#" + btn).addClass("pressed");
@@ -66,8 +73,6 @@ function playSound(color) {
 
 function checkPattern(btn) {
   if (userPattern[btn] === gamePattern[btn]) {
-    console.log(userPattern[btn]);
-    console.log(gamePattern[btn]);
     if (userPattern.length === gamePattern.length) {
       setTimeout(() => {
         startGame();
@@ -80,10 +85,28 @@ function checkPattern(btn) {
     setTimeout(() => {
       $("body").removeClass("game-over");
     }, 200);
+    var currentLevel = level;
+    if (currentLevel > highScore) {
+      updateHighScore(currentLevel);
+    }
     userPattern = [];
     gamePattern = [];
-    level = 0;
+    level *= 0;
     gameStarted = false;
-    $("#level-title").text("Press any key to restart");
+    $(".btn").off("click");
+    setTimeout(() => {
+      $(".btn").on("click", function () {
+        clickAnimation(this.id);
+        playSound(this.id);
+      });
+    }, 700);
+    $("#level-title").text("Press anywhere to restart");
+  }
+}
+
+function updateHighScore(level) {
+  if (level > highScore) {
+    highScore = level - 1;
+    $("#high-score span").text(highScore);
   }
 }
