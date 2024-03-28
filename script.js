@@ -50,25 +50,12 @@ function startGame() {
             userPattern.push(this.id);
             checkPattern(userPattern.length - 1);
           });
-        }, 100 * gamePattern.length); // Adjust the delay as needed
+        }, 200 * gamePattern.length); // delay for button to be clickable after all sounds are played
       }
-    }, delay);
+    }, delay); //delay for each playsound
 
-    delay += 500; // Increment delay by 500 milliseconds for each iteration
+    delay += 500; //increment delay while more sound is being played
   }
-}
-
-function clickAnimation(btn) {
-  $("#" + btn).addClass("pressed");
-
-  setTimeout(() => {
-    $("#" + btn).removeClass("pressed");
-  }, 100);
-}
-
-function playSound(color) {
-  let audio = new Audio("./sounds/" + color + ".mp3");
-  audio.play();
 }
 
 function checkPattern(btn) {
@@ -80,8 +67,8 @@ function checkPattern(btn) {
     }
   } else {
     $("body").addClass("game-over");
-    let gameOverSound = new Audio("./sounds/wrong.mp3");
-    gameOverSound.play();
+    gameOverSound();
+
     setTimeout(() => {
       $("body").removeClass("game-over");
     }, 200);
@@ -102,6 +89,24 @@ function checkPattern(btn) {
     }, 700);
     $("#level-title").text("Press anywhere to restart");
   }
+}
+
+function clickAnimation(btn) {
+  $("#" + btn).addClass("pressed");
+
+  setTimeout(() => {
+    $("#" + btn).removeClass("pressed");
+  }, 100);
+}
+
+function playSound(color) {
+  let audio = new Audio("./sounds/" + color + ".mp3");
+  audio.play();
+}
+
+function gameOverSound() {
+  let gameOverSound = new Audio("./sounds/wrong.mp3");
+  gameOverSound.play();
 }
 
 function updateHighScore(level) {
