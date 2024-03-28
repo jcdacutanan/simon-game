@@ -3,7 +3,7 @@ let userPattern = [];
 let gamePattern = [];
 let level = 0;
 let gameStarted = false;
-var highScore = 0;
+let highScore = 0;
 
 $(".btn").click(function () {
   clickAnimation(this.id);
@@ -61,6 +61,7 @@ function startGame() {
 function checkPattern(btn) {
   if (userPattern[btn] === gamePattern[btn]) {
     if (userPattern.length === gamePattern.length) {
+      $(".btn").off("click");
       setTimeout(() => {
         startGame();
       }, 1000);
