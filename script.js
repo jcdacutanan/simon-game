@@ -50,7 +50,7 @@ function startGame() {
             userPattern.push(this.id);
             checkPattern(userPattern.length - 1);
           });
-        }, 200 * gamePattern.length); // delay for button to be clickable after all sounds are played
+        }, 100 * gamePattern.length); // delay for button to be clickable after all sounds are played
       }
     }, delay); //delay for each playsound
 
