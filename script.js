@@ -15,14 +15,36 @@ $(".btn").click(function () {
   }
 });
 
-$(document).click(function (e) {
-  if (!$(".container").has(e.target).length) {
-    if (!gameStarted) {
-      startGame();
-      gameStarted = true;
+// $(document).click(function (e) {
+//   if (!$(".container").has(e.target).length) {
+//     if (!gameStarted) {
+//       startGame();
+//       gameStarted = true;
+//     }
+//   }
+// });
+// $("#level-title").click(function () {
+//   if (!gameStarted) {
+//     startGame();
+//     gameStarted = true;
+//   }
+// });
+if (!gameStarted) {
+  $("#level-title").css("cursor", "pointer");
+  $("#level-title").hover(
+    function () {
+      $(this).text("Start?");
+    },
+    function () {
+      $(this).text("Click Here to Start"); // Replace "Original Text" with the original text
     }
-  }
-});
+  );
+
+  $("#level-title").click(function () {
+    startGame();
+    gameStarted = true;
+  });
+}
 
 function startGame() {
   level++;
