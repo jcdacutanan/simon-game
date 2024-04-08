@@ -31,6 +31,7 @@ $(".btn").click(function () {
 // });
 if (!gameStarted) {
   $("#level-title").css("cursor", "pointer");
+
   $("#level-title").hover(
     function () {
       $(this).text("Start?");
@@ -39,12 +40,15 @@ if (!gameStarted) {
       $(this).text("Click Here to Start"); // Replace "Original Text" with the original text
     }
   );
-
-  $("#level-title").click(function () {
+}
+$("#level-title").click(function () {
+  if (!gameStarted) {
     startGame();
     gameStarted = true;
-  });
-}
+    $("#level-title").off("mouseenter mouseleave");
+    $("#level-title").css("cursor", "default");
+  }
+});
 
 function startGame() {
   level++;
@@ -110,7 +114,16 @@ function checkPattern(btn) {
         playSound(this.id);
       });
     }, 700);
-    $("#level-title").text("Press anywhere to restart");
+    $("#level-title").text("Click Here to Restart");
+    $("#level-title").css("cursor", "pointer");
+    $("#level-title").hover(
+      function () {
+        $(this).text("Start?");
+      },
+      function () {
+        $(this).text("Click Here to Restart"); // Replace "Original Text" with the original text
+      }
+    );
   }
 }
 

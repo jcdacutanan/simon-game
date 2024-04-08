@@ -10,6 +10,7 @@ body {
   font-size: 3rem;
   margin: 5%;
   color: #fef2bf;
+  display: inline-block;
 }
 
 #high-score {
